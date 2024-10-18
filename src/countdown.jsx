@@ -1,15 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { TweenMax, Quart } from 'gsap';
-import './flipTimer.css';
+import './countdown.css';
+import { useLocation } from 'react-router-dom';
 
-const FlipCountdown = ({ initialHours = 16, initialMinutes = 0, initialSeconds = 5 }) => {
+const FlipCountdown = () => {
+ 
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const hours = parseInt(queryParams.get('hh'));
+    const minutes = parseInt(queryParams.get('mm'));
+    const seconds = parseInt(queryParams.get('ss'));
+
     const [time, setTime] = useState({
-        hours: initialHours,
-        minutes: initialMinutes,
-        seconds: initialSeconds
+        hours: hours,
+        minutes: minutes,
+        seconds: seconds
     });
 
     useEffect(() => {
+        console.log("queryParams",seconds)
         const interval = setInterval(() => {
             setTime((prevTime) => {
                 let { hours, minutes, seconds } = prevTime;
@@ -94,7 +103,7 @@ const FlipCountdown = ({ initialHours = 16, initialMinutes = 0, initialSeconds =
         <div className="wrap">
             <h1>Draft <strong>Countdown</strong></h1>
             <div className="countdown">
-                <div className="bloc-time hours" data-init-value={initialHours}>
+                <div className="bloc-time hours" data-init-value={hours}>
                     <span className="count-title">Hours</span>
                     <div className="figure hours hours-1">
                         <span className="top">0</span>
@@ -110,7 +119,7 @@ const FlipCountdown = ({ initialHours = 16, initialMinutes = 0, initialSeconds =
                     </div>
                 </div>
 
-                <div className="bloc-time min" data-init-value={initialMinutes}>
+                <div className="bloc-time min" data-init-value={minutes}>
                     <span className="count-title">Minutes</span>
                     <div className="figure min min-1">
                         <span className="top">0</span>
@@ -126,7 +135,7 @@ const FlipCountdown = ({ initialHours = 16, initialMinutes = 0, initialSeconds =
                     </div>
                 </div>
 
-                <div className="bloc-time sec" data-init-value={initialSeconds}>
+                <div className="bloc-time sec" data-init-value={seconds}>
                     <span className="count-title">Seconds</span>
                     <div className="figure sec sec-1">
                         <span className="top">0</span>

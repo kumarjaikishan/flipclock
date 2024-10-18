@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { TweenMax, Quart,Elastic  } from 'gsap';
+import { TweenMax, Quart  } from 'gsap';
 import './clock.css';
-import './flipTimer.css';
+import './countdown.css';
 
 const FlipClock = () => {
     const [time, setTime] = useState({
@@ -72,8 +72,7 @@ const FlipClock = () => {
             TweenMax.to($back_top, 0.8, {
                 rotationX: 0,
                 transformPerspective: 300,
-                // ease: Quart.easeOut,
-                ease: Elastic.easeOut.config(0.5, 0.3),
+                ease: Quart.easeOut,
                 clearProps: 'all'
             });
         };
