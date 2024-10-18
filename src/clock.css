@@ -1,0 +1,17 @@
+.clock {
+    & .countdown {
+        position: relative;
+        width: 800px;
+        margin: 0 auto;
+    }
+}
+
+.am-pm-indicator {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #000;
+    color: #ea4c4c;
+}
