@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { TweenMax, Quart } from 'gsap';
 import './flipTimer.css';
 
-const FlipClock = ({ initialHours = 16, initialMinutes = 0, initialSeconds = 5 }) => {
+const FlipCountdown = ({ initialHours = 16, initialMinutes = 0, initialSeconds = 5 }) => {
     const [time, setTime] = useState({
         hours: initialHours,
         minutes: initialMinutes,
@@ -146,4 +146,4 @@ const FlipClock = ({ initialHours = 16, initialMinutes = 0, initialSeconds = 5 }
     );
 };
 
-export default FlipClock;
+export default FlipCountdown;

@@ -1,5 +1,6 @@
 body {
   background-color: #f2f1ed;
+  background: rgb(68, 68, 68);
 }
 
 .wrap {
@@ -55,6 +56,7 @@ h2 strong {
   margin-bottom: 15px;
   font: normal 0.94em "Lato";
   color: #1a1a1a;
+  color: white;
   text-transform: uppercase;
 }
 .countdown .figure {

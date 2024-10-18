@@ -5,7 +5,7 @@ import './flipTimer.css';
 
 const FlipClock = () => {
     const [time, setTime] = useState({
-        hours: new Date().getHours(),
+        hours: new Date().getHours() % 12 || 12,
         minutes: new Date().getMinutes(),
         seconds: new Date().getSeconds(),
         period: new Date().getHours() >= 12 ? 'PM' : 'AM'
