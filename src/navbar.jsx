@@ -1,18 +1,14 @@
-import React from 'react'
-import { NavLink, useNavigate, useParams } from 'react-router-dom';
+import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 const Navbar = () => {
-
-    const navigate = useNavigate();
-    const navi = () => {
-        navigate('/countdown?hh=10&mm=5&ss=58')
-    }
     return (
         <div className='navbar'>
-            <NavLink to='/' >Clock </NavLink>
-            <button onClick={navi} >Countdown </button>
+            <NavLink to='/' >Clock</NavLink>
+            <NavLink to='/countdown?hh=0&mm=5&ss=0'>Countdown</NavLink>
+            <NavLink to='/timer'>Timer</NavLink>
         </div>
     )
 }
 
-export default Navbar
+export default Navbar;

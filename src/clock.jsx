@@ -102,7 +102,7 @@ const FlipClock = () => {
                         <span className="bottom-back"><span>0</span></span>
                     </div>
                 </div>
-
+                <div className="colon">:</div>
                 <div className="bloc-time min" data-init-value={time.minutes}>
                     <span className="count-title">Minutes</span>
                     <div className="figure min min-1">
@@ -118,7 +118,7 @@ const FlipClock = () => {
                         <span className="bottom-back"><span>0</span></span>
                     </div>
                 </div>
-
+                <div className="colon">:</div>
                 <div className="bloc-time sec" data-init-value={time.seconds}>
                     <span className="count-title">Seconds</span>
                     <div className="figure sec sec-1">

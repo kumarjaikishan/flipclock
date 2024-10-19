@@ -15,32 +15,27 @@
   --color-surface: #1e1e1e;
   --color-primary: #bb86fc;
   --color-primary-variant: #3700b3;
-  --color-secondary: #03dac6;
-  --color-secondary-variant: #018786;
   --color-text-primary: #ffffff;
-  --color-text-secondary: #b0b0b0;
-  --color-text-placeholder: #888888;
-  --color-error: #cf6679;
   --clockColor: white;
   --clockBackground: rgb(71, 70, 70);
   --clockrotatebackground: rgb(61, 61, 61);
   --clockbordercolor: rgba(255, 255, 255, 0.2);
+  --clockcoloncolor:rgb(61, 61, 61);
 }
 
 .whole.light {
-  --backgroundColor: #ffffff;
+  --backgroundColor: #eeecec;
   --color-surface: #f2f2f2;
   --color-primary: #6200ea;
-  --color-primary-variant: #3700b3;
-  --color-secondary: #03dac6;
   --color-text-primary: #000000;
-  --color-text-secondary: #333333;
-  --color-error: #b00020;
   --clockColor: #de4848;
   --clockColor: #064955;
   --clockBackground: #f7f7f7;
+  --clockBackground: #f3f3f3;
   --clockrotatebackground: #fff;
   --clockbordercolor: rgba(0, 0, 0, 0.2);
+  --clockcoloncolor:#064955;
+
 }
 /* Global Body Styles */
 body {

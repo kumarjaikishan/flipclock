@@ -101,13 +101,17 @@ const FlipCountdown = () => {
         checkTime(time.seconds, $seconds[0], $seconds[1]);
 
     }, [time]);
-  
+    const [color,setcolor]= useState('black')
+    const handlecolor=(e)=>{
+        console.log(e.target.value)
+        setcolor(e.target.value)
+    }
 
     return (
         <div className="wrap">
             <h1><strong>Countdown</strong></h1>
-            {/* <input type="color" name="" id="" onChange={handlecolor} /> */}
-            <div className="countdown">
+            <input type="color" name="" id="" onChange={handlecolor} />
+            <div className="countdown" style={{color:color}}>
                 <div className="bloc-time hours" data-init-value={hours}>
                     <span className="count-title">Hours</span>
                     <div className="figure hours hours-1" >

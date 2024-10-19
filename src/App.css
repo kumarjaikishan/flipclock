@@ -16,6 +16,14 @@
 /* Navbar Links */
 .navbar a {
   color: var(--color-text-primary);
+  padding: 4px 10px;
+  border-radius: 3px;
+  letter-spacing: 1px;
+  text-decoration: none;
+}
+.navbar a.active{
+  color: white;
+  background:#064955;
 }
 
 /* Navbar Buttons */
@@ -26,8 +34,4 @@
   border: none;
   border-radius: 4px;
   cursor: pointer;
-}
-
-.navbar button:hover {
-  background-color: var(--color-primary-variant);
 }

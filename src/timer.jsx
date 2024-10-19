@@ -1,55 +1,37 @@
 import React, { useEffect, useState } from 'react';
 import { TweenMax, Quart } from 'gsap';
 import './countdown.css';
-import { useLocation } from 'react-router-dom';
+import './timer.css';
 
-const FlipCountdown = () => {
-    const location = useLocation();
-    const queryParams = new URLSearchParams(location.search);
-    const hours = parseInt(queryParams.get('hh'));
-    const minutes = parseInt(queryParams.get('mm'));
-    const seconds = parseInt(queryParams.get('ss'));
+const Timer = () => {
+    const [time, setTime] = useState({ hours: 0, minutes: 0, seconds: 0, milliseconds: 0 });
+    const [isRunning, setIsRunning] = useState(false);
 
     useEffect(() => {
-        if (isNaN(hours)) return alert('Hours is not valid Number')
-        if (isNaN(minutes)) return alert('Minutes is not valid Number')
-        if (isNaN(seconds)) return alert('Second is not valid Number')
-
-        if (minutes >= 60 || seconds >= 60) {
-            alert("Minutes or seconds can't exceed 59.");
+        let interval;
+        if (isRunning) {
+            interval = setInterval(() => {
+                setTime(prevTime => {
+                    let { hours, minutes, seconds, milliseconds } = prevTime;
+                    milliseconds += 10; // Increment milliseconds by 10
+                    if (milliseconds >= 1000) {
+                        milliseconds = 0; // Reset milliseconds
+                        seconds++; // Increment seconds
+                    }
+                    if (seconds >= 60) {
+                        seconds = 0; // Reset seconds
+                        minutes++; // Increment minutes
+                    }
+                    if (minutes >= 60) {
+                        minutes = 0; // Reset minutes
+                        hours++; // Increment hours
+                    }
+                    return { hours, minutes, seconds, milliseconds };
+                });
+            }, 10);
         }
-    }, [])
-
-    const [time, setTime] = useState({
-        hours: isNaN(hours) || hours < 0 ? 0 : hours,
-        minutes: isNaN(minutes) || minutes < 0 || minutes >= 60 ? 0 : minutes,
-        seconds: isNaN(seconds) || seconds < 0 || seconds >= 60 ? 0 : seconds
-    });
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setTime((prevTime) => {
-                let { hours, minutes, seconds } = prevTime;
-
-                if (seconds > 0) {
-                    seconds--;
-                } else if (minutes > 0) {
-                    seconds = 59;
-                    minutes--;
-                } else if (hours > 0) {
-                    seconds = 59;
-                    minutes = 59;
-                    hours--;
-                } else {
-                    clearInterval(interval);
-                }
-
-                return { hours, minutes, seconds };
-            });
-        }, 1000);
-
         return () => clearInterval(interval);
-    }, []);
+    }, [isRunning]);
 
     useEffect(() => {
         const $hours = document.querySelectorAll('.bloc-time.hours .figure');
@@ -60,10 +42,8 @@ const FlipCountdown = () => {
             const valStr = value.toString().padStart(2, '0');
             const val_1 = valStr.charAt(0);
             const val_2 = valStr.charAt(1);
-
             const fig_1_value = $el_1.querySelector('.top').textContent;
             const fig_2_value = $el_2.querySelector('.top').textContent;
-
             if (fig_1_value !== val_1) animateFigure($el_1, val_1);
             if (fig_2_value !== val_2) animateFigure($el_2, val_2);
         };
@@ -73,10 +53,8 @@ const FlipCountdown = () => {
             const $bottom = $el.querySelector('.bottom');
             const $back_top = $el.querySelector('.top-back');
             const $back_bottom = $el.querySelector('.bottom-back');
-
             $back_top.querySelector('span').textContent = value;
             $back_bottom.querySelector('span').textContent = value;
-
             TweenMax.to($top, 0.8, {
                 rotationX: '-180deg',
                 transformPerspective: 300,
@@ -87,7 +65,6 @@ const FlipCountdown = () => {
                     TweenMax.set($top, { rotationX: 0 });
                 }
             });
-
             TweenMax.to($back_top, 0.8, {
                 rotationX: 0,
                 transformPerspective: 300,
@@ -99,18 +76,28 @@ const FlipCountdown = () => {
         checkTime(time.hours, $hours[0], $hours[1]);
         checkTime(time.minutes, $minutes[0], $minutes[1]);
         checkTime(time.seconds, $seconds[0], $seconds[1]);
+    }, [time.hours, time.minutes, time.seconds]);
 
-    }, [time]);
-  
+    const handleStartStop = () => {
+        setIsRunning(prevState => !prevState);
+    };
+
+    const handleReset = () => {
+        setIsRunning(false);
+        setTime({ hours: 0, minutes: 0, seconds: 0, milliseconds: 0 });
+    };
 
     return (
-        <div className="wrap">
-            <h1><strong>Countdown</strong></h1>
-            {/* <input type="color" name="" id="" onChange={handlecolor} /> */}
+        <div className="wrap timer">
+            <div className="btn">
+                <button onClick={handleStartStop}>{isRunning ? 'Stop' : 'Start'}</button>
+                <button onClick={handleReset}>Reset</button>
+            </div>
+            <h1><strong>Timer</strong></h1>
             <div className="countdown">
-                <div className="bloc-time hours" data-init-value={hours}>
+                <div className="bloc-time hours">
                     <span className="count-title">Hours</span>
-                    <div className="figure hours hours-1" >
+                    <div className="figure hours hours-1">
                         <span className="top">0</span>
                         <span className="top-back"><span>0</span></span>
                         <span className="bottom">0</span>
@@ -123,11 +110,8 @@ const FlipCountdown = () => {
                         <span className="bottom-back"><span>0</span></span>
                     </div>
                 </div>
-
-                {/* First colon between hours and minutes */}
                 <div className="colon">:</div>
-
-                <div className="bloc-time min" data-init-value={minutes}>
+                <div className="bloc-time min">
                     <span className="count-title">Minutes</span>
                     <div className="figure min min-1">
                         <span className="top">0</span>
@@ -142,11 +126,8 @@ const FlipCountdown = () => {
                         <span className="bottom-back"><span>0</span></span>
                     </div>
                 </div>
-
-                {/* Second colon between minutes and seconds */}
                 <div className="colon">:</div>
-
-                <div className="bloc-time sec" data-init-value={seconds}>
+                <div className="bloc-time sec">
                     <span className="count-title">Seconds</span>
                     <div className="figure sec sec-1">
                         <span className="top">0</span>
@@ -162,8 +143,13 @@ const FlipCountdown = () => {
                     </div>
                 </div>
             </div>
+            <div className="milliseconds">
+                <span className="count-title">Milliseconds</span>
+                <br />
+                <span className='mscount'>{time.milliseconds.toString().padStart(3, '0')}</span>
+            </div>
         </div>
     );
 };
 
-export default FlipCountdown;
+export default Timer;

@@ -3,6 +3,7 @@ import './App.css'
 import FlipCountdown from './countdown'
 import Flipclock from './clock'
 import Navbar from './navbar';
+import Timer from './timer';
 
 function App() {
 
@@ -13,6 +14,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Flipclock />} />
           <Route path="/countdown" element={<FlipCountdown />} />
+          <Route path="/timer" element={<Timer />} />
         </Routes>
       </div>
     </>
